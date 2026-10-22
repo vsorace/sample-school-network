@@ -18,7 +18,8 @@ For future revisions, I plan on implementing the following:
 
 ## Network Summary
 
-This network is divided into three VLANs
+This network is divided into three VLANs, as follows:
+
 <table>
   <tr>
     <th></th>
@@ -53,3 +54,58 @@ This network is divided into three VLANs
 </table>
 
 In this scenario, the IP range of 10.0.192.1-10.0.255.255 is unused
+
+Additionally, Router0 is configured as a "router-on-a-stick" configuration using dot1Q encapsulation, with interface g0/0 being divided into three separate sub-interfaces. They are configured as follows:
+
+<table>
+  <tr>
+    <th>Interface on Router0</th>
+     <td>g0/0.10</td>
+     <td>g0/0.20</td>
+     <td>g0/0.30</td>
+  </tr>
+  <tr>
+    <th>IP Address</th>
+    <td>10.0.0.1</td>
+    <td>10.0.64.1</td>
+    <td>10.0.128.1</td>
+  </tr>
+   <tr>
+    <th>Subnet Mask</th>
+    <td>255.255.192.0</td>
+    <td>255.255.192.0</td>
+    <td>255.255.192.0</td>
+  </tr>
+</table>
+
+# How I did the thing
+
+I started out with my Router0, ensuring that interface g0/0 is enabled using the following commands:
+``en
+conf t
+int g0/0 no shutdown
+exit``
+
+While still in `config` mode, I configured the sub-interfaces on interface g0/0:
+``int g0/0.10
+encap dot1Q 10
+ip addr 10.0.0.1 255.255.192.0
+no shutdown
+exit``
+
+I followed the same process for interfaces `g0/0.20` and `g0/0.30`:
+```int g0/0.20
+encap dot1Q 20
+ip addr 10.0.64.1 255.255.192.0
+no shutdown
+exit```
+
+``int g0/0.30
+encap dot1Q 30
+ip addr 10.0.128.1 255.255.192.0
+no shutdown
+exit``
+
+I then assigned DHCP pools for the VLANs that were going to later be configured on Switch0.
+
+**TODO: Cleanup Mardown Text for the command sections**

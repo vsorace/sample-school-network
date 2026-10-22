@@ -2,6 +2,8 @@
 
 A simplified representation of a school network, demonstrating my ability to configure access points, VLANs, subnets, DHCP, trunk ports, and sub-interfaces. This document will summarize the network configuration and go into detail about how I set it up.
 
+**Edit: I messed up some IP addresses, will redo screenshots**
+
 <img width="666" height="452" alt="Sample School Network" src="https://github.com/user-attachments/assets/47ecf45b-bc81-4990-9043-04b655c19242" />
 
 For future revisions, I plan on implementing the following:

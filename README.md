@@ -34,9 +34,9 @@ This network is divided into three VLANs
   </tr>
   <tr>
     <th>IP Address</th>
-    <td>10.0.0.1</td>
-    <td>10.0.64.1</td>
-    <td>10.0.128.1</td>
+    <td>10.0.0.2</td>
+    <td>10.0.64.2</td>
+    <td>10.0.128.2</td>
   </tr>
    <tr>
     <th>Subnet Mask</th>

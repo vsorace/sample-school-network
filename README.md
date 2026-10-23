@@ -108,7 +108,7 @@ Set up dhcp exclusions for the STAFF pool (reserved default gateway, vlan 20, an
 
 Set up dhcp exclusions for unused addresses on the fourth subnet
 
-<br>`ip dhcp exclud	ed-address 10.0.192.1 10.0.255.255`
+<br>`ip dhcp excluded-address 10.0.192.1 10.0.255.255`
 
 <br>`end`<br>`write memory`
 
@@ -122,8 +122,7 @@ Assign Guest VLAN as vlan 10 to fa0/1 at switch0
 
 Assign Staff VLAN as vlan 20 to fa0/2 at switch0
 
-<br>`en` <br>`conf t` <br>`int fa0/2` <br>`switchport mode access` <br>`switchport access vlan 20` <br>`int vlan 20` <br>`ip addr 10.0.64.2 255.255.192.0` <br>`no shutdown`
-exit
+<br>`en` <br>`conf t` <br>`int fa0/2` <br>`switchport mode access` <br>`switchport access vlan 20` <br>`int vlan 20` <br>`ip addr 10.0.64.2 255.255.192.0` <br>`no shutdown` <br>`exit`
 
 Assign Student VLAN as vlan 30 to fa0/3 at switch0
 

@@ -81,19 +81,50 @@ Additionally, Router0 is configured as a "router-on-a-stick" configuration using
 # How I did the thing
 
 I started out with my Router0, ensuring that interface `g0/0` is enabled using the following commands:
-<br>`en`</br><br>`conf t`</br><br>`int g0/0 no shutdown`</br><br>`exit`</br>
+<br>`en`<br>`conf t`<br>`int g0/0 no shutdown`<br>`exit`
 
 While still in `config` mode, I configured the sub-interfaces on interface `g0/0`:
-<br>`int g0/0.10`</br><br>`encap dot1Q 10`</br><br>`ip addr 10.0.0.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
+<br>`int g0/0.10`<br>`encap dot1Q 10`<br>`ip addr 10.0.0.1 255.255.192.0`<br>`no shutdown`<br>`exit`
 
 I followed the same process for interfaces `g0/0.20` and `g0/0.30`:
-<br>`int g0/0.20`</br><br>`encap dot1Q 20`</br><br>`ip addr 10.0.64.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
+<br>`int g0/0.20`<br>`encap dot1Q 20`<br>`ip addr 10.0.64.1 255.255.192.0`<br>`no shutdown`<br>`exit`
 
-<br>`int g0/0.30`</br><br>`encap dot1Q 30`</br><br>`ip addr 10.0.128.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
+<br>`int g0/0.30`<br>`encap dot1Q 30`<br>`ip addr 10.0.128.1 255.255.192.0`<br>`no shutdown`<br>`exit`
 
 I then assigned DHCP pools on Router0 for the VLANs that were going to later be configured on Switch0.
-<br>`ip dhcp pool GUEST`</br><br>`network 10.0.0.0 255.255.192.0`</br><br>`default-router 10.0.0.1`</br><br>`exit`</br>
+<br>`ip dhcp pool GUEST`<br>`network 10.0.0.0 255.255.192.0`<br>`default-router 10.0.0.1`<br>`exit`
 
-<br>`ip dhcp pool STAFF`</br><br>`network 10.0.64.0 255.255.192.0`</br><br>`default-router 10.0.64.1`</br><br>`exit`</br>
+<br>`ip dhcp pool STAFF`<br>`network 10.0.64.0 255.255.192.0`<br>`default-router 10.0.64.1`<br>`exit`
 
-<br>`ip dhcp pool STUDENTS`</br><br>`network 10.0.128.0 255.255.192.0`</br><br>`default-router 10.0.128.1`</br><br>`exit`</br>
+<br>`ip dhcp pool STUDENTS`<br>`network 10.0.128.0 255.255.192.0`<br>`default-router 10.0.128.1`<br>`exit`
+
+I then set up DHCP exclusions for IP address ranges 10.0.0.1-2 and 10.0.128.1-2. 10.0.0.1 and 10.0.128.1 are reserved as the default gateways for the GUEST (vlan 10) and STUDENT (vlan 30) DHCP pools, respectively. 
+
+<br>`ip dhcp excluded-address 10.0.0.1 10.0.0.2`<br>`ip dhcp excluded-address 10.0.128.1 10.0.128.2`
+
+Set up dhcp exclusions for the STAFF pool (reserved default gateway, vlan 20, and other static devices)
+
+<br>`ip dhcp excluded-address 10.0.64.1 10.0.64.20`
+
+Set up dhcp exclusions for unused addresses on the fourth subnet
+
+<br>`ip dhcp exclud	ed-address 10.0.192.1 10.0.255.255`
+
+<br>`end`<br>`write memory`
+
+Trunk port assigned to g0/1 at switch0 using the following commands:
+
+<br>`en` <br>`conf t` <br>`int g0/1` <br>`no shutdown` <br>`switchport mode trunk`
+
+Assign Guest VLAN as vlan 10 to fa0/1 at switch0
+
+<br>`en` <br>`conf t` <br>`int fa0/1` <br>`switchport mode access` <br>`switchport access vlan 10` <br>`int vlan 10` <br>`ip addr 10.0.0.2 255.255.192.0` <br>`no shutdown` <br>`exit`
+
+Assign Staff VLAN as vlan 20 to fa0/2 at switch0
+
+<br>`en` <br>`conf t` <br>`int fa0/2` <br>`switchport mode access` <br>`switchport access vlan 20` <br>`int vlan 20` <br>`ip addr 10.0.64.2 255.255.192.0` <br>`no shutdown`
+exit
+
+Assign Student VLAN as vlan 30 to fa0/3 at switch0
+
+<br>`en` <br>`conf t` <br>`int fa0/3` <br>`switchport mode access` <br>`switchport access vlan 30` <br>`int vlan 30` <br>`ip addr 10.0.128.2 255.255.192.0` <br>`no shutdown` <br>`exit` <br>`end` <br>`write memory`

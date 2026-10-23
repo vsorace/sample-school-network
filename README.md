@@ -80,32 +80,20 @@ Additionally, Router0 is configured as a "router-on-a-stick" configuration using
 
 # How I did the thing
 
-I started out with my Router0, ensuring that interface g0/0 is enabled using the following commands:
-``en
-conf t
-int g0/0 no shutdown
-exit``
+I started out with my Router0, ensuring that interface `g0/0` is enabled using the following commands:
+<br>`en`</br><br>`conf t`</br><br>`int g0/0 no shutdown`</br><br>`exit`</br>
 
-While still in `config` mode, I configured the sub-interfaces on interface g0/0:
-``int g0/0.10
-encap dot1Q 10
-ip addr 10.0.0.1 255.255.192.0
-no shutdown
-exit``
+While still in `config` mode, I configured the sub-interfaces on interface `g0/0`:
+<br>`int g0/0.10`</br><br>`encap dot1Q 10`</br><br>`ip addr 10.0.0.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
 
 I followed the same process for interfaces `g0/0.20` and `g0/0.30`:
-```int g0/0.20
-encap dot1Q 20
-ip addr 10.0.64.1 255.255.192.0
-no shutdown
-exit```
+<br>`int g0/0.20`</br><br>`encap dot1Q 20`</br><br>`ip addr 10.0.64.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
 
-``int g0/0.30
-encap dot1Q 30
-ip addr 10.0.128.1 255.255.192.0
-no shutdown
-exit``
+<br>`int g0/0.30`</br><br>`encap dot1Q 30`</br><br>`ip addr 10.0.128.1 255.255.192.0`</br><br>`no shutdown`</br><br>`exit`</br>
 
-I then assigned DHCP pools for the VLANs that were going to later be configured on Switch0.
+I then assigned DHCP pools on Router0 for the VLANs that were going to later be configured on Switch0.
+<br>`ip dhcp pool GUEST`</br><br>`network 10.0.0.0 255.255.192.0`</br><br>`default-router 10.0.0.1`</br><br>`exit`</br>
 
-**TODO: Cleanup Mardown Text for the command sections**
+<br>`ip dhcp pool STAFF`</br><br>`network 10.0.64.0 255.255.192.0`</br><br>`default-router 10.0.64.1`</br><br>`exit`</br>
+
+<br>`ip dhcp pool STUDENTS`</br><br>`network 10.0.128.0 255.255.192.0`</br><br>`default-router 10.0.128.1`</br><br>`exit`</br>

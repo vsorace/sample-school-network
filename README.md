@@ -130,12 +130,41 @@ I then assigned the Staff VLAN as vlan 20 to fa0/2 at switch0.
 Finally, I assigned the Student VLAN as vlan 30 to fa0/3 at switch0.
 <br>`en` <br>`conf t` <br>`int fa0/3` <br>`switchport mode access` <br>`switchport access vlan 30` <br>`int vlan 30` <br>`ip addr 10.0.128.2 255.255.192.0` <br>`no shutdown` <br>`exit` <br>`end` <br>`write memory`
 
-### Adding laptops to the configuration
+## Adding laptops to the configuration
 
 <br>Guest Laptop 1 – `10.0.0.3` (via DHCP) <br>Guest Laptop 2 – `10.0.0.4` (via DHCP) <br>Staff Laptop 1 – `10.0.64.22` (via DHCP) <br>Staff Laptop 2 – `10.0.64.21` (via DHCP) <br>Student Laptop 1 – `10.0.128.4` (via DHCP) <br>Student Laptop 2 – `10.0.128.3` (via DHCP)
 
 **Note:** IP addresses may change each time the network restarts due to DHCP.
 
-Testing the configuration
+### Testing the configuration
 
-In the below screenshot, Guest Laptop 1 (`10.0.0.3
+In the below screenshot, Guest Laptop 1 (`10.0.0.3`) is able to ping Guest Laptop 2 (`10.0.0.4).
+
+<img width="1366" height="728" alt="guest 1 can ping guest 2" src="https://github.com/user-attachments/assets/ae06e342-cb05-45ae-8bf6-c07616f7327f" />
+
+However, Guest Laptop 1 cannot ping Staff Laptop 1 (`10.0.64.22`) or Staff Laptop 2 (`10.0.64.21`).
+
+<img width="1366" height="728" alt="guest 1 no ping staff 1 or 2" src="https://github.com/user-attachments/assets/9d63d2fa-783d-4f26-b363-92ff5baf5f9c" />
+
+Guest Laptop 1 cannot ping to Student Laptop 1 (110.0.128.4) or Student Laptop 2 (`10.0.128.3) either.
+
+<img width="1366" height="728" alt="guest no ping student 1 or 2" src="https://github.com/user-attachments/assets/e29de824-5ce2-4560-bd28-6b80c1d3cbf5" />
+
+Switching to Staff Laptop 1 (`10.0.64.22`), we can see that it is able to ping Staff Laptop 2 (`10.0.64.21`)
+
+<img width="1366" height="728" alt="staff 1 can ping staff 2" src="https://github.com/user-attachments/assets/c6cb441b-72ee-4f4c-9974-5149afff1dd1" />
+
+However, Staff Laptop 1 cannot ping Guest Laptop 1 (`10.0.0.3`) or Guest Laptop 2 (`10.0.0.4`)
+
+<img width="1366" height="728" alt="staff 1 no ping guest 1 or 2" src="https://github.com/user-attachments/assets/2b234d36-a30c-4afe-ba2e-9bd2ffc76432" />
+
+Staff Laptop1 cannot ping Student Laptop 1 (`10.0.128.4`) or Student Laptop 2 (`10.0.128.3`) either.
+
+<img width="1366" height="728" alt="staff 1 no ping student 1 or 2" src="https://github.com/user-attachments/assets/568b7654-2919-43ef-970a-5eaff462b0d8" />
+
+Switching to Student Laptop 1 (`10.0.128.4`), I am able to ping Student Laptop 2 (`10.0.128.3`).
+
+<img width="1366" height="728" alt="student 1 ping student 2" src="https://github.com/user-attachments/assets/698154ae-6706-4245-a137-cc61647f0d32" />
+
+In our previous tests, the Guest and Staff laptops were not able to ping either Student Laptop 1 or 2, so doing a ping test from Student Laptop 1 outside of its VLAN would be redundant.
+

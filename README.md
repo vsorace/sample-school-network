@@ -146,7 +146,7 @@ However, Guest Laptop 1 cannot ping Staff Laptop 1 (`10.0.64.22`) or Staff Lapto
 
 <img width="1366" height="728" alt="guest 1 no ping staff 1 or 2" src="https://github.com/user-attachments/assets/9d63d2fa-783d-4f26-b363-92ff5baf5f9c" />
 
-Guest Laptop 1 cannot ping to Student Laptop 1 (110.0.128.4) or Student Laptop 2 (`10.0.128.3) either.
+Guest Laptop 1 cannot ping to Student Laptop 1 (`10.0.128.4`) or Student Laptop 2 (`10.0.128.3`) either.
 
 <img width="1366" height="728" alt="guest no ping student 1 or 2" src="https://github.com/user-attachments/assets/e29de824-5ce2-4560-bd28-6b80c1d3cbf5" />
 

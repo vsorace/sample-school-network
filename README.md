@@ -80,7 +80,7 @@ Additionally, Router0 is configured as a "router-on-a-stick" configuration using
 
 The ultimate goal of this configuration is for the Guest, Staff, and Student networks to be isolated from each other, while still allowing hosts and devices within each network to communicate with each other.
 
-# How I did the thing
+# Setup Process
 
 ## Network segmentation
 

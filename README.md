@@ -138,7 +138,7 @@ Finally, I assigned the Student VLAN as vlan 30 to fa0/3 at switch0.
 
 ### Testing the configuration
 
-In the below screenshot, Guest Laptop 1 (`10.0.0.3`) is able to ping Guest Laptop 2 (`10.0.0.4).
+In the below screenshot, Guest Laptop 1 (`10.0.0.3`) is able to ping Guest Laptop 2 (`10.0.0.4`).
 
 <img width="1366" height="728" alt="guest 1 can ping guest 2" src="https://github.com/user-attachments/assets/ae06e342-cb05-45ae-8bf6-c07616f7327f" />
 
